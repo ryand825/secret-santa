@@ -25,7 +25,6 @@ router.get("/test", (req: Request, res: Response) =>
 // POST
 // Host New Game
 router.post("/host", (req: Request, res: Response) => {
-  console.log(req.body);
   const { displayName }: { displayName: string } = req.body;
   const { errors, isValid } = validateDisplayName(displayName);
   let response = {
@@ -165,10 +164,9 @@ router.put("/shuffle", (req: Request, res: Response) => {
       const santaArray = santas.map(santa => santa.name); // Pulls names and puts them in a new array
       const shuffledArray = shuffle(santaArray); // shuffles the array and creates a new array
       santas.forEach((santa, key) => (santa.giveTo = shuffledArray[key])); // Mutates the original santa objects, adding a name in the giveTo field
-
+      // session.assigned = true;
       session.save();
-      console.log(santas);
-      return res.json(santas); // Isn't returning anything, will need to call status after
+      return res.json(santas);
     } else {
       return err
         ? res.status(400).json(err)
