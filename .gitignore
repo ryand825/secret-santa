@@ -1,0 +1,5 @@
+/dist
+/node_modules
+/src/config/keys_dev.ts
+/client/node_modules
+/client/dist
