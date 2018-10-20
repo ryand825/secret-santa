@@ -71,10 +71,26 @@ let sessionId = "";
   join4.innerHTML = join4Response.thisSanta;
 
   await shuffleFunction();
+
+  const statusRaw = await fetch(
+    // Get request that returns data for the specified user
+    // GET requests use query params instead of the body object
+    `/api/session/status/${sessionId}/santa%20host`, // <-- query params
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    }
+  );
+  const statusResponse = await statusRaw.json();
+  console.log(statusResponse);
 })();
 
 const shuffleFunction = () => {
-  fetch("/api/session/shuffle", {
+  return fetch("/api/session/shuffle", {
+    // fetch using .then instead of "async/await"
     method: "PUT",
     headers: {
       Accept: "application/json",
